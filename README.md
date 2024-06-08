@@ -1,2 +1,3 @@
 # basic-python-things
-Simple things in Python
+
+Mostly simple things in Python.
