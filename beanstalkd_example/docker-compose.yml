@@ -1,0 +1,28 @@
+version: '3'
+services:
+  my_cool_queue:
+    container_name: my_cool_queue
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile.beanstalkd
+    entrypoint: /entrypoint.sh
+  producer:
+    container_name: producer
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile.producer
+    environment:
+      JOB_QUEUE_NAME: my_cool_queue
+      JOB_QUEUE_PORT: 11300
+      JOB_QUEUE_TUBE: "foobar"
+    entrypoint: /entrypoint.sh
+  consumer:
+    container_name: consumer
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile.consumer
+    environment:
+      JOB_QUEUE_NAME: my_cool_queue
+      JOB_QUEUE_PORT: 11300
+      JOB_QUEUE_TUBE: "foobar"
+    entrypoint: /entrypoint.sh
